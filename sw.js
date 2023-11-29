@@ -7,7 +7,8 @@ self.addEventListener("install", (e) => {
             'https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
             '/main.js',
-            'https://rickandmortyapi.com/api/character/?name=rick&status=alive'
+            'https://rickandmortyapi.com/api/character/?name=rick&status=alive',
+            'https://rickandmortyapi.com/api/character'
         ]);
     });// espera hasta que la promesa se resuelva
     e.waitUntil(cache);
