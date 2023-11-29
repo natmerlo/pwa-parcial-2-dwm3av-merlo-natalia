@@ -8,6 +8,8 @@ if ("serviceWorker" in navigator) {
         });
 }
 
+
+
 // instancia principal de Vue
 const app = new Vue({
     el: '#app',
@@ -20,23 +22,26 @@ const app = new Vue({
     },
     methods: {
         //Ver más detalles de personaje
-        verPersonaje(url) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const { name, gender, location, species, origin } = data;
-                    this.personajeActual = { name, gender, location, species, origin };
-                    this.mostrarModal();
+        async verPersonaje(url) {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
 
-                    // Verifica si el personaje actual ya existe en el historial
-                    const personaje = this.historial.find(personaje => personaje.name === this.personajeActual.name);
-                    if (!personaje) {
-                        // Si no existe en el historial lo agrega
-                        this.historial.push(this.personajeActual);
-                        // Guarda el historial en el Local Storage
-                        localStorage.setItem('historial', JSON.stringify(this.historial));
-                    }
-                })
+                const { name, gender, location, species, origin } = data;
+                this.personajeActual = { name, gender, location, species, origin };
+                this.mostrarModal();
+
+                // Verifica si el personaje actual ya existe en el historial
+                const personaje = this.historial.find(personaje => personaje.name === this.personajeActual.name);
+                if (!personaje) {
+                    // Si no existe en el historial lo agrega
+                    this.historial.push(this.personajeActual);
+                    // Guarda el historial en el Local Storage
+                    localStorage.setItem('historial', JSON.stringify(this.historial));
+                }
+            } catch (error) {
+                console.error("Error al cargar datos del personaje:", error);
+            }
         },
         mostrarModal() {
             this.estadoModal = true;
