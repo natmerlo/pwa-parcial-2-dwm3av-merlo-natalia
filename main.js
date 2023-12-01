@@ -10,10 +10,12 @@ if ("serviceWorker" in navigator) {
 
 
 
+
 // instancia principal de Vue
 const app = new Vue({
     el: '#app',
     data: {
+        eventoDeInstalacion: null,
         titulo: 'Mis personajes',
         personajes: [],
         personajeActual: null,
@@ -21,6 +23,9 @@ const app = new Vue({
         historial: []
     },
     methods: {
+        instalarAplicacion() {
+            console.log("instalando aplicación")
+        },
         //Ver más detalles de personaje
         async verPersonaje(url) {
             try {
@@ -64,6 +69,12 @@ const app = new Vue({
         }
     },
     mounted() {
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            this.eventoDeInstalacion = event;
+            this.instalacionPendiente = true;
+        });
+
         // Realiza una solicitud de fetch a la API para obtener una lista de personajes vivos
         fetch('https://rickandmortyapi.com/api/character/?name=rick&status=alive')
             .then(response => response.json())
