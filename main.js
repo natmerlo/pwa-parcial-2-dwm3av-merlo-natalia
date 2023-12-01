@@ -86,6 +86,9 @@ const app = new Vue({
             this.eventoDeInstalacion = event;
             this.instalacionPendiente = true;
         });
+        if (this.eventoDeInstalacion == null) {
+            this.instalacionPendiente = false;
+        }
 
         // Realiza una solicitud de fetch a la API para obtener una lista de personajes vivos
         fetch('https://rickandmortyapi.com/api/character/?name=rick&status=alive')
