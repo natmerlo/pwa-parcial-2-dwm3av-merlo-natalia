@@ -50,15 +50,19 @@
         <div class="row" id="historial">
             <div class="col-9 m-auto my-5">
                 <h2>Historial</h2>
-                <ul class="list-group">
+                <button @click="borrarHistorial" class="btn btn-danger" v-if="historial.length > 0">Borrar
+                    Historial</button>
+                <ul class="list-group" v-if="historial.length > 0">
                     <li class="list-group-item" v-for="personaje in historial" :key="personaje.name">
                         <div class="d-flex justify-content-between align-items-center">
                             <span>{{ personaje.name }}</span>
                         </div>
                     </li>
                 </ul>
+                <p v-else>Aquí veras tu historial de personajes consultados</p>
             </div>
         </div>
+
 
     </div>
 

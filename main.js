@@ -55,6 +55,12 @@ const app = new Vue({
             if (historialGuardado) {
                 this.historial = JSON.parse(historialGuardado);
             }
+        },
+        borrarHistorial() {
+            // Borra el historial en la instancia de Vue
+            this.historial = [];
+            // Borra el historial en el Local Storage
+            localStorage.removeItem('historial');
         }
     },
     mounted() {
