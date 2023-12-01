@@ -49,26 +49,41 @@ Vue.component('componente-form', {
         }
     },
     template: `
-        <div>
-            <form @submit.prevent="enviarFormulario">
-                <label for="nombre">Nombre:</label>
-                <input v-model="nombre" type="text" id="nombre" name="nombre" required>
+    <div class="formulario col-md-9 m-auto my-5">
+    <h2>Suscríbete al Newsletter</h2>
+    <p>¡Mantente actualizado sobre nuestros nuevos contenidos! Suscríbete a nuestro newsletter para recibir
+        notificaciones sobre lanzamientos y noticias emocionantes.</p>
+    <form @submit.prevent="enviarFormulario" class="d-flex flex-column gap-3">
 
-                <label for="correo">Correo:</label>
-                <input v-model="correo" type="email" id="correo" name="correo" required>
-                <span style="color: red;">{{ errorCorreo }}</span>
-
-                <button type="submit">Enviar</button>
-            </form>
-
-            <div v-if="datosRecibidos">
-                <h2>¡Recibimos tus datos!</h2>
-                
-                <!-- Mostrar mensaje personalizado -->
-                <p v-if="mensajeAgradecimiento">{{ mensajeAgradecimiento }}</p>
+        <div class="d-flex gap-3">
+            <div class="w-50">
+                <label for="nombre" class="fw-bold">Nombre</label>
+                <input class="w-100" v-model="nombre" type="text" id="nombre" name="nombre" required>
             </div>
+
+            <div class="w-50">
+                <label for="correo" class="fw-bold">Correo electrónico</label>
+                <input class="w-100" v-model="correo" type="email" id="correo" name="correo" required>
+            </div>
+
         </div>
-    `
+
+        <div>
+            <button class="btn style-btn" type="submit">Suscribirse</button>
+        </div>
+
+    </form>
+
+    <div v-if="datosRecibidos" class="my-3">
+        <h2>¡Recibimos tus datos!</h2>
+
+        <!-- Mostrar mensaje personalizado -->
+        <p v-if="mensajeAgradecimiento">{{ mensajeAgradecimiento }}</p>
+    </div>
+</div>
+
+`
+
 });
 
 
@@ -78,7 +93,7 @@ const app = new Vue({
     data: {
         instalacionPendiente: true,
         eventoDeInstalacion: null,
-        titulo: 'Mis personajes',
+        titulo: '¡Bienvenido!',
         personajes: [],
         personajeActual: null,
         estadoModal: false,

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Historial</title>
 
     <!-- manifest -->
     <link rel="manifest" href="manifest.json" />
@@ -22,36 +22,47 @@
 
 <body>
 
+    <nav class="navbar navbar-expand-lg bg-nav px-md-5">
+        <div class="container-fluid">
+            <img src="/images/icon_128x128.png" alt="Bootstrap" width="34" height="34">
+            <a class="navbar-brand px-3" href="/index.html">Rick and Morty</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#">Historial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacto.html">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div id="app" class="container">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/index.html">Rick and Morty</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Historial</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/contacto.html">Contacto</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
         <div class="row" id="historial">
-            <div class="col-9 m-auto my-5">
-                <h2>Historial</h2>
-                <button @click="borrarHistorial" class="btn btn-danger" v-if="historial.length > 0">Borrar
-                    Historial</button>
+            <div class="col-md-9 m-auto my-5">
+                <div>
+                    <h2>Historial</h2>
+                    <p>
+                        A continuación, encontrarás un listado de los personajes que has consultado recientemente.
+                        Descubre más detalles sobre cada uno de ellos y mantente al tanto de las actualizaciones en el
+                        vasto y peculiar mundo de Rick and Morty.
+                    </p>
+                    <button @click="borrarHistorial" class="btn style-btn my-3" v-if="historial.length > 0">Borrar
+                        Historial</button>
+
+                </div>
+
                 <ul class="list-group" v-if="historial.length > 0">
                     <li class="list-group-item" v-for="personaje in historial" :key="personaje.name">
                         <div class="d-flex justify-content-between align-items-center">
@@ -59,14 +70,49 @@
                         </div>
                     </li>
                 </ul>
-                <p v-else>Aquí veras tu historial de personajes consultados</p>
             </div>
         </div>
 
+        <div class="formulario col-md-9 m-auto my-5">
+            <h2>Suscríbete al Newsletter</h2>
+            <p>¡Mantente actualizado sobre nuestros nuevos contenidos! Suscríbete a nuestro newsletter para recibir
+                notificaciones sobre lanzamientos y noticias emocionantes.</p>
+            <form @submit.prevent="enviarFormulario" class="d-flex flex-column gap-3">
+
+                <div class="d-flex gap-3">
+                    <div class="w-50">
+                        <label for="nombre" class="fw-bold">Nombre</label>
+                        <input class="w-100" v-model="nombre" type="text" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="w-50">
+                        <label for="correo" class="fw-bold">Correo electrónico</label>
+                        <input class="w-100" v-model="correo" type="email" id="correo" name="correo" required>
+                    </div>
+
+                </div>
+
+                <div>
+                    <button class="btn style-btn" type="submit">Suscribirse</button>
+                </div>
+
+            </form>
+
+            <div v-if="datosRecibidos">
+                <h2>¡Recibimos tus datos!</h2>
+
+                <!-- Mostrar mensaje personalizado -->
+                <p v-if="mensajeAgradecimiento">{{ mensajeAgradecimiento }}</p>
+            </div>
+        </div>
 
     </div>
 
     <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
 </body>
 
 </html>

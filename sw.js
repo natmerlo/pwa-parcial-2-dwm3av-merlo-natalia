@@ -13,7 +13,8 @@ self.addEventListener("install", (e) => {
             '/images/icon_128x128.png',
             'http://localhost/form/procesar_formulario.php',
             '/contacto.html',
-            '/historial'
+            '/historial',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'
         ]);
     });// espera hasta que la promesa se resuelva
     e.waitUntil(cache);
@@ -22,19 +23,31 @@ self.addEventListener("install", (e) => {
 self.addEventListener("fetch", (e) => {
     const url = e.request.url;
     console.log(url);
-    const response =
-        fetch(e.request)
+
+    // Manejar solicitudes POST
+    if (e.request.method === 'POST') {
+        e.respondWith(
+            fetch(e.request)
+                .then(response => {
+                    return response;
+                })
+                .catch(() => {
+                    return caches.match(e.request);
+                })
+        );
+    } else {
+        // Manejar otras solicitudes (GET, etc.)
+        const response = fetch(e.request)
             .then((res) => {
                 return caches.open('mi-cache-2').then(cache => {
-                    // guardo el clon en caché
                     cache.put(e.request, res.clone());
-                    // devuelvo la respuesta original
                     return res;
-                })
+                });
             })
-            .catch((err) => {
+            .catch(() => {
                 return caches.match(e.request);
-            })
-    e.respondWith(response);
+            });
 
+        e.respondWith(response);
+    }
 });

@@ -1,6 +1,50 @@
+body {
+    background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%);
+}
+
 .sticky {
     position: fixed;
-    top: 1rem;
-    right: 2rem;
+    top: 5rem;
+    right: 5rem;
+}
 
+.bg-nav {
+    background-color: #96fbc4;
+}
+
+#historial,
+.formulario {
+    height: 100vh;
+}
+
+.style-btn {
+    background-color: #e1e125;
+    color: #000000;
+    border: none;
+    padding: 8px 25px;
+    font-weight: 500;
+}
+
+.style-btn:hover {
+    background-color: #c8c809;
+    color: #000000;
+
+}
+
+.install-btn {
+    background-color: #04a9a9;
+    color: #ffffff;
+    border: none;
+    padding: 8px 25px;
+    font-weight: 500;
+}
+
+.install-btn:hover {
+    background-color: #0e7f7f;
+    color: #ffffff;
+
+}
+
+.modal {
+    background: rgba(0, 0, 0, 0.657);
 }
