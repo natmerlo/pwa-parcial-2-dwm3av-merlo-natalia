@@ -8,7 +8,46 @@ if ("serviceWorker" in navigator) {
         });
 }
 
+Vue.component('componente-form', {
+    data() {
+        return {
+            nombre: '',
+            correo: '',
+        };
+    },
+    methods: {
+        enviarFormulario: async function () {
+            // Realizar solicitud POST con Vue.js y fetch
+            const respuesta = await fetch("http://localhost/form/procesar_formulario.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `nombre=${this.nombre}&correo=${this.correo}`,
+            });
 
+            // Manejar la respuesta
+            const datos = await respuesta.json();
+            console.log(datos);
+
+            // Puedes hacer más cosas con los datos aquí según tus necesidades
+        }
+    },
+    template: `
+    <div>
+            <form @submit.prevent="enviarFormulario">
+                <label for="nombre">Nombre:</label>
+                <input v-model="nombre" type="text" id="nombre" name="nombre" required>
+
+                <label for="correo">Correo:</label>
+                <input v-model="correo" type="email" id="correo" name="correo" required>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+
+    `
+});
 
 
 // instancia principal de Vue
