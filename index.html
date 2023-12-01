@@ -93,7 +93,7 @@
             </div>
         </div>
 
-        <div class="row sticky">
+        <div class="row sticky" v-if="instalacionPendiente">
             <button @click="instalarAplicacion()" id="install" class="btn btn-primary w-100">Instalar
                 aplicación</button>
         </div>

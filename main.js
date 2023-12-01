@@ -15,6 +15,7 @@ if ("serviceWorker" in navigator) {
 const app = new Vue({
     el: '#app',
     data: {
+        instalacionPendiente: true,
         eventoDeInstalacion: null,
         titulo: 'Mis personajes',
         personajes: [],
@@ -28,7 +29,7 @@ const app = new Vue({
                 this.eventoDeInstalacion.prompt()
                     .then(({ outcome }) => {
                         if (outcome == "accepted") {
-                            console.log("se instaló")
+                            this.instalacionPendiente = false;
                         } else {
                             console.log("no se instaló")
                         }
