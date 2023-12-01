@@ -24,7 +24,18 @@ const app = new Vue({
     },
     methods: {
         instalarAplicacion() {
-            console.log("instalando aplicación")
+            if (this.eventoDeInstalacion != null) {
+                this.eventoDeInstalacion.prompt()
+                    .then(({ outcome }) => {
+                        if (outcome == "accepted") {
+                            console.log("se instaló")
+                        } else {
+                            console.log("no se instaló")
+                        }
+                    })
+            } else {
+                console.log("no puedo instalar");
+            }
         },
         //Ver más detalles de personaje
         async verPersonaje(url) {
