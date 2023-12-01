@@ -7,45 +7,67 @@ if ("serviceWorker" in navigator) {
             console.log("service worker no registrado");
         });
 }
-
 Vue.component('componente-form', {
     data() {
         return {
             nombre: '',
             correo: '',
+            errorCorreo: '',
+            datosRecibidos: null,
+            mensajeAgradecimiento: '',
         };
     },
     methods: {
+        validarFormulario() {
+            this.errorCorreo = '';
+            if (!this.correo.includes('@')) {
+                this.errorCorreo = 'Ingrese un correo electrónico válido.';
+                return false;
+            }
+            return true;
+        },
         enviarFormulario: async function () {
-            // Realizar solicitud POST con Vue.js y fetch
-            const respuesta = await fetch("http://localhost/form/procesar_formulario.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `nombre=${this.nombre}&correo=${this.correo}`,
-            });
+            if (this.validarFormulario()) {
+                const respuesta = await fetch("http://localhost/form/procesar_formulario.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `nombre=${this.nombre}&correo=${this.correo}`,
+                });
 
-            // Manejar la respuesta
-            const datos = await respuesta.json();
-            console.log(datos);
+                const datos = await respuesta.json();
+                console.log(datos);
 
-            // Puedes hacer más cosas con los datos aquí según tus necesidades
+                this.datosRecibidos = datos;
+
+                // Mensaje personalizado
+                this.mensajeAgradecimiento = `Gracias ${this.nombre} por enviarnos tu solicitud. Nos comunicaremos al siguiente correo: ${this.correo}`;
+
+
+            }
         }
     },
     template: `
-    <div>
+        <div>
             <form @submit.prevent="enviarFormulario">
                 <label for="nombre">Nombre:</label>
                 <input v-model="nombre" type="text" id="nombre" name="nombre" required>
 
                 <label for="correo">Correo:</label>
                 <input v-model="correo" type="email" id="correo" name="correo" required>
+                <span style="color: red;">{{ errorCorreo }}</span>
 
                 <button type="submit">Enviar</button>
             </form>
-        </div>
 
+            <div v-if="datosRecibidos">
+                <h2>¡Recibimos tus datos!</h2>
+                
+                <!-- Mostrar mensaje personalizado -->
+                <p v-if="mensajeAgradecimiento">{{ mensajeAgradecimiento }}</p>
+            </div>
+        </div>
     `
 });
 

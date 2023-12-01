@@ -10,7 +10,8 @@ self.addEventListener("install", (e) => {
             'https://rickandmortyapi.com/api/character/?name=rick&status=alive',
             'https://rickandmortyapi.com/api/character',
             '/manifest.json',
-            '/images'
+            '/images/icon_128x128.png',
+            'http://localhost/form/procesar_formulario.php'
         ]);
     });// espera hasta que la promesa se resuelva
     e.waitUntil(cache);
